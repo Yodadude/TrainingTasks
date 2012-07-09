@@ -19,11 +19,52 @@ namespace TrainingTasks1
         [Test]
         public void A_Blank_Password_Is_Not_Valid()
         {
-            IPasswordValidation validation = null;
+			IPasswordValidation validation = new PasswordValidation();
             var result = validation.Validate("");
 
             Assert.False(result.IsValid);
-            Assert.AreEqual(result.Message, "Password cannot be blank");
+            Assert.AreEqual(result.Message, "Password must be specified.");
         }
-    }
+
+		[Test]
+		public void Password_Must_Be_Correct_Length()
+		{
+			IPasswordValidation validation = new PasswordValidation();
+			var result = validation.Validate("x");
+
+			Assert.False(result.IsValid);
+			Assert.AreEqual(result.Message, "Password must be at least 10 characters in length.");
+		}
+
+		[Test]
+		public void Password_Must_Contain_Digit()
+		{
+			IPasswordValidation validation = new PasswordValidation();
+			var result = validation.Validate("xxxxxxxxxx");
+
+			Assert.False(result.IsValid);
+			Assert.AreEqual(result.Message, "Password must be at least 1 number.");
+		}
+
+		[Test]
+		public void Password_Must_Contain_Uppercase()
+		{
+			IPasswordValidation validation = new PasswordValidation();
+			var result = validation.Validate("1xxxxxxxxx");
+
+			Assert.False(result.IsValid);
+			Assert.AreEqual(result.Message, "Password must be at least 1 uppercase character.");
+		}
+
+		[Test]
+		public void Valid_Password()
+		{
+			IPasswordValidation validation = new PasswordValidation();
+			var result = validation.Validate("1Axxxxxxxx");
+
+			Assert.True(result.IsValid);
+			Assert.AreEqual(result.Message, "");
+		}
+
+	}
 }
