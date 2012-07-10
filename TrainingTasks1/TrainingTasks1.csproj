@@ -50,9 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPasswordValidation.cs" />
+    <Compile Include="Validators\PasswordUppercaseValidator.cs" />
     <Compile Include="PasswordValidationResult.cs" />
+    <Compile Include="PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests.cs" />
+    <Compile Include="Validators\PasswordDigitValidator.cs" />
+    <Compile Include="Validators\PasswordEmptyValidator.cs" />
+    <Compile Include="Validators\PasswordLengthValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
