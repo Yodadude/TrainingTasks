@@ -16,20 +16,18 @@ namespace TrainingTasks2.LSP
         public override int Height
         {
             get { return base.Height; }
-            set { SetWidthAndHeight(value); }
+            set { base.Height = value;
+            	base.Width = value;
+            }
         }
 
         public override int Width
         {
             get { return base.Width; }
-            set { SetWidthAndHeight(value); }
+			set { base.Width = value;
+				base.Height = value;
+			}
         }
 
-        // Both sides of a square are equal.
-        private void SetWidthAndHeight(int value)
-        {
-            base.Height = value;
-            base.Width = value;
-        }
     }
 }
