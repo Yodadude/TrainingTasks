@@ -7,15 +7,25 @@ namespace TrainingTasks2.SRP
     {
         public void Register(string email, string password)
         {
-            if (!email.Contains("@"))
-                throw new Exception("Email is not an email!");
+			//if (!email.Contains("@"))
+			//    throw new Exception("Email is not an email!");
 
-            var user = new User(email, password);
-            var db = new FakeDatabase();
-            db.Save(user);
+        	var emailValidator = new EmailValidator();
+			if (!emailValidator.IsValid(email))
+				throw new Exception(emailValidator.Message);
 
-            var smtpClient = new FakeSmtpClient();
-            smtpClient.Send(new MailMessage("mysite@nowhere.com", email) { Subject = "Hello fool!" });
+			//var user = new User(email, password);
+			//var db = new FakeDatabase();
+			//db.Save(user);
+
+        	var saveUser = new SaveUser();
+			saveUser.Save(email, password);
+
+			//var smtpClient = new FakeSmtpClient();
+			//smtpClient.Send(new MailMessage("mysite@nowhere.com", email) { Subject = "Hello fool!" });
+
+			var notifyUser = new NotifyUser();
+			notifyUser.Send(email);
         }
     }
 }
