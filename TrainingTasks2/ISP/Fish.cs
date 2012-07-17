@@ -2,13 +2,8 @@ using System;
 
 namespace TrainingTasks2.ISP
 {
-    public class Fish : IAnimal
+    public class Fish : IAnimalBase
     {
-        public void Fly()
-        {
-            throw new NotImplementedException();
-        }
-
         public void See()
         {
             // write code about seeing of the fish
@@ -17,11 +12,6 @@ namespace TrainingTasks2.ISP
         public void Eat()
         {
             // write code about eating of the fish
-        }
-
-        public void Run()
-        {
-            throw new NotImplementedException();
         }
     }
 }

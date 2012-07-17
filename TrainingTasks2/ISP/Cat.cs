@@ -2,13 +2,8 @@ using System;
 
 namespace TrainingTasks2.ISP
 {
-    public class Cat : IAnimal
+    public class Cat : IAnimalBase, IAnimalRunner
     {
-        public void Fly()
-        {
-            throw new NotImplementedException();
-        }
-
         public void See()
         {
             // write code about seeing of the cat

@@ -4,11 +4,20 @@ using System.Text;
 
 namespace TrainingTasks2.ISP
 {
-    public interface IAnimal
+
+	public interface IAnimalBase
+	{
+		void See();
+		void Eat();
+	}
+
+	public interface IAnimalFlight
+	{
+		void Fly();
+	}
+
+    public interface IAnimalRunner
     {
-        void Fly();
         void Run();
-        void See();
-        void Eat();
     }
 }

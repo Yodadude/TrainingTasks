@@ -9,9 +9,8 @@ namespace TrainingTasks2.DIP
     {
         private readonly List<Birthday> _birthdays;
 
-        public BirthdayCalculator()
+		public BirthdayCalculator(IBirthdayService birthdayService)
         {
-            var birthdayService = new BirthdayService();
             _birthdays = birthdayService.GetAllBirthdays();
         }
 

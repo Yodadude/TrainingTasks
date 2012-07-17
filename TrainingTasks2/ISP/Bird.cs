@@ -1,6 +1,6 @@
 namespace TrainingTasks2.ISP
 {
-    public class Bird : IAnimal
+    public class Bird : IAnimalBase, IAnimalRunner, IAnimalFlight
     {
         public void See()
         {

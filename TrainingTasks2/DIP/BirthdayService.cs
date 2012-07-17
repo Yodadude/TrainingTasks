@@ -3,8 +3,13 @@ using System.Collections.Generic;
 
 namespace TrainingTasks2.DIP
 {
-    public class BirthdayService
-    {
+	public interface IBirthdayService
+	{
+		List<Birthday> GetAllBirthdays();
+	}
+
+	public class BirthdayService : IBirthdayService
+	{
         public List<Birthday> GetAllBirthdays()
         {
             return new List<Birthday>()
