@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace TrainingTasks3
 {
+    [TestFixture]
     public class Tests
     {
         [Ignore]
@@ -21,7 +22,22 @@ namespace TrainingTasks3
                 options.AddDynamic(context => { return Enumerable.Empty<MenuItem>(); });   // context is MenuContext, returns IEnumerable<MenuItem>
                 options.Visible((context, menuItem) => true);                              // context is MenuContext, menuItem is MenuItem, returns bool
             });
-            
+
         }
+
+        [Test]
+        public void MenuConfigLabelTest()
+        {
+
+            MenuConfig menuConfig = Menu.Config(options =>
+            {
+                options.AddStatic("/test", "Test");                                        
+                options.AddDynamic(context => { return Enumerable.Empty<MenuItem>(); });   
+                options.Visible((context, menuItem) => true);                              
+            });
+
+            Assert.AreEqual("Test", menuConfig.MenuItem.Label);
+        }
+
     }
 }
