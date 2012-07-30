@@ -1,17 +1,17 @@
 using System;
-using System.Collections.Generic;
 
 namespace TrainingTasks3
 {
     public class Menu
     {
 
-		public static MenuConfig Config(Action<MenuConfig> func)
+		public static MenuConfig Config(Action<IMenuConfigBuilder> action)
 		{
 
-            var config = new MenuConfig();
+			var config = new MenuConfig();
+			var builder = new MenuConfigBuilder(config);
 
-            func(config);
+			action(builder);
 
             return config;
 
