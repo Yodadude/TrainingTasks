@@ -36,7 +36,7 @@ namespace TrainingTasks3
                 options.Visible((context, menuItem) => true);                              
             });
 
-            Assert.AreEqual("Test", menuConfig.MenuItems.First().Label.ToString());
+			Assert.AreEqual("Test", menuConfig.StaticMenuItems.First().Text.ToString());
         }
 
     }

@@ -14,17 +14,17 @@ namespace TrainingTasks3
 
 		public void AddStatic(string url, string label)
 		{
-			_config.MenuItems.Add(new MenuItem{Url = url, Label = label});
+			_config.StaticMenuItems.Add(new MenuItem { Url = url, Text = label });
 		}
 
 		public void AddDynamic(Func<MenuContext, IEnumerable<MenuItem>> func)
 		{
-			_config.DynamicMenu = func;
+			_config.DynamicMenuItemsFunc = func;
 		}
 
 		public void Visible(Func<MenuContext, MenuItem, bool> func)
 		{
-			_config.IsVisible = func;
+			_config.IsVisibleFunc = func;
 		}
 	}
 }
