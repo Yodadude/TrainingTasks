@@ -15,12 +15,20 @@ namespace TrainingTasks3
 
         public List<MenuItem> Build()
         {
-        	var menuItems1 = _config.StaticMenuItems;
-			var menuItems2 = _config.DynamicMenuItemsFunc(_context);
+        	var menuItems = new List<MenuItem>();
 
-			menuItems1.AddRange(menuItems2);
+			if (_config.StaticMenuItems != null)
+			{
+				menuItems.AddRange(_config.StaticMenuItems);
+			}
 
-        	foreach (var menuItem in menuItems1)
+        	if (_config.DynamicMenuItemsFunc != null)
+			{
+				var menuItems2 = _config.DynamicMenuItemsFunc(_context);
+				menuItems.AddRange(menuItems2);
+			}
+
+			foreach (var menuItem in menuItems)
         	{
         		if (_config.IsVisibleFunc(_context, menuItem))
         		{
@@ -28,7 +36,7 @@ namespace TrainingTasks3
         		}
         	}
 
-			return menuItems1;
+			return menuItems;
         }
     }
 }
