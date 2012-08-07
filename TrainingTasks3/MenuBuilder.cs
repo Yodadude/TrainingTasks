@@ -15,7 +15,20 @@ namespace TrainingTasks3
 
         public List<MenuItem> Build()
         {
-            return new List<MenuItem>();
+        	var menuItems1 = _config.StaticMenuItems;
+			var menuItems2 = _config.DynamicMenuItemsFunc(_context);
+
+			menuItems1.AddRange(menuItems2);
+
+        	foreach (var menuItem in menuItems1)
+        	{
+        		if (_config.IsVisibleFunc(_context, menuItem))
+        		{
+        			menuItem.Text = "";
+        		}
+        	}
+
+			return menuItems1;
         }
     }
 }

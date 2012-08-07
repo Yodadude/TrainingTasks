@@ -10,6 +10,7 @@ namespace TrainingTasks3
 		public MenuConfigBuilder(MenuConfig config)
 		{
 			_config = config;
+			_config.StaticMenuItems = new List<MenuItem>();
 		}
 
 		public void AddStatic(string url, string label)
