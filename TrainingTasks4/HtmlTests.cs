@@ -43,5 +43,13 @@ namespace TrainingTasks4
             Html html = Html.Tag("span").Attr("test", "testvalue");
 			Assert.True("<span test=\"testvalue\"></span>" == html);
         }
+
+		[Test]
+		public void BasicHtmlBuilderInputFor()
+		{
+			var html = new Html<UserDetails>(new UserDetails() { Location = "Melbourne" });
+			html.InputFor(x => x.Location);
+			Assert.AreEqual("<input type=\"text\" name=\"Location\" value=\"Melbourne\"></input>", html.ToString());
+		}
     }
 }
