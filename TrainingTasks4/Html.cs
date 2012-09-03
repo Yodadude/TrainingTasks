@@ -11,6 +11,7 @@ namespace TrainingTasks4
 		protected string _tagName = "";
 		protected IDictionary<string, string> _attributes = new Dictionary<string, string>();
 		protected List<string> _classes = new List<string>();
+        private Boolean _selfClosing;
 
 		public Html(string tag)
 		{
@@ -24,9 +25,12 @@ namespace TrainingTasks4
 			return new Html(tag);
 		}
 
-		public Html Attr(string name, string value)
+		public Html Attr(string key, object value)
 		{
-			_attributes.Add(name, value);
+            if (!String.IsNullOrWhiteSpace(key) && value != null)
+            {
+                _attributes.Add(key, value.ToString());
+            }
 			return this;
 		}
 
@@ -42,7 +46,13 @@ namespace TrainingTasks4
 			return this;
 		}
 
-		public new string ToString()
+        public Html SelfClosing()
+        {
+            this._selfClosing = true;
+            return this;
+        }
+
+		public override string ToString()
 		{
 			string tagClass = "";
 			string tagAttr = "";
@@ -60,42 +70,13 @@ namespace TrainingTasks4
 				}
 			}
 
-			return "<" + _tagName +  tagAttr + tagClass + "></" + _tagName + ">";
+			return "<" + _tagName + tagAttr + tagClass + (_selfClosing ? "/>" : "></" + _tagName + ">");
 		}
 
 		public static implicit operator string(Html html)
 		{
 			return html.ToString();
 		}
-	}
-
-
-	public class Html<T> : Html
-	{
-		private readonly T _obj;
-
-		public Html(T obj) : base("")
-		{
-			_obj = obj;
-		}
-
-		public Html<T> InputFor(Expression<Func<T, object>> expr)
-		{
-
-			this._tagName = "input";
-			Attr("type", "text");
-
-			var body = expr.Body;
-			var memberExpression = body as MemberExpression;
-			if (memberExpression != null)
-			{
-				var objectValue = expr.Compile().Invoke(_obj).ToString();
-				Attr("name", memberExpression.Member.Name).Attr("value", objectValue);
-			}
-
-			return this;
-		}
-
 	}
 	
 	public class UserDetails

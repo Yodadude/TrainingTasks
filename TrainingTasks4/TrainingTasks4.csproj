@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HtmlHelper.cs" />
     <Compile Include="HtmlTests.cs" />
     <Compile Include="Html.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

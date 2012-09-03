@@ -47,9 +47,9 @@ namespace TrainingTasks4
 		[Test]
 		public void BasicHtmlBuilderInputFor()
 		{
-			var html = new Html<UserDetails>(new UserDetails() { Location = "Melbourne" });
-			html.InputFor(x => x.Location);
-			Assert.AreEqual("<input type=\"text\" name=\"Location\" value=\"Melbourne\"></input>", html.ToString());
+			var htmlhelper = new HtmlHelper<UserDetails>(new UserDetails() { Location = "Melbourne" });
+			var html = htmlhelper.InputFor(x => x.Location);
+			Assert.AreEqual("<input type=\"text\" name=\"Location\" value=\"Melbourne\"/>", html.ToString());
 		}
     }
 }
