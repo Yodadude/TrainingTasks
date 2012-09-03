@@ -12,7 +12,7 @@ namespace TrainingTasks5
         [Test]
         public void find_all_products_that_are_out_of_stock()
         {
-            var products = Data.GetProducts();
+            var products = Data.GetProducts().Where(x => x.UnitsInStock == 0);
 
             Assert.AreEqual(5, products.Count());
         }
@@ -20,7 +20,7 @@ namespace TrainingTasks5
         [Test]
         public void find_all_products_that_are_in_stock_and_cost_more_than_3_per_unit()
         {
-            var products = Data.GetProducts();
+			var products = Data.GetProducts().Where(x => x.UnitsInStock > 0 && x.UnitPrice > 3);
 
             Assert.AreEqual(71, products.Count());
         }
@@ -28,7 +28,7 @@ namespace TrainingTasks5
         [Test]
         public void find_the_sum_of_products()
         {
-            var productsSum = Data.GetProducts();
+            var productsSum = Data.GetProducts().Sum(x => x.UnitPrice * x.UnitsInStock);
 
             Assert.AreEqual(74050.85m, productsSum);
         }
@@ -36,7 +36,7 @@ namespace TrainingTasks5
         [Test]
         public void find_the_number_of_distinct_categories()
         {
-            var distinctCats = Data.GetProducts();
+            var distinctCats = Data.GetProducts().Select(x => x.Category).Distinct();
 
             Assert.AreEqual(8, distinctCats.Count());
         }
@@ -44,15 +44,28 @@ namespace TrainingTasks5
         [Test]
         public void find_the_number_of_distinct_categories_another_way()
         {
-            var distinctCats = Data.GetProducts();
+            var distinctCats = Data.GetProducts().Distinct(new MyComparer());
 
             Assert.AreEqual(8, distinctCats.Count());
         }
 
+		public class MyComparer : IEqualityComparer<Product>
+		{
+			public bool Equals(Product x, Product y)
+			{
+				return x.Category == y.Category;
+			}
+
+			public int GetHashCode(Product obj)
+			{
+				return obj.Category.GetHashCode();
+			}
+		} 
+
         [Test]
         public void find_the_cheapest_product_with_the_category_Seafood_and_Beverages()
         {
-            var products = Data.GetProducts();
+			var products = Data.GetProducts().Where(x => x.Category == "Beverages" || x.Category == "Seafood").OrderBy(x => x.UnitPrice).Take(2);
             var categories = products.Select(x => new {x.Category, CheapestProduct = x}).ToList();
 
             Assert.AreEqual(2, categories.Count);
@@ -65,7 +78,7 @@ namespace TrainingTasks5
         [Test]
         public void find_the_average_prices_of_seafood()
         {
-            var productAv = Data.GetProducts().Average(x=>x.UnitPrice);
+            var productAv = Data.GetProducts().Where(x => x.Category == "Seafood").Average(x=>x.UnitPrice);
 
             Assert.AreEqual(20.6825m, productAv);
         }
@@ -73,7 +86,7 @@ namespace TrainingTasks5
         [Test]
         public void find_the_top_two_priced_products_in_separate_categories_by_unitprice()
         {
-            var products = Data.GetProducts().Select(x => new
+            var products = Data.GetProducts().OrderByDescending(x => x.UnitPrice).Take(2).Select(x => new
                                                               {
                                                                   Product = x,
                                                                   x.Category

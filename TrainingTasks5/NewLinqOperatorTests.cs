@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
@@ -16,9 +15,30 @@ namespace TrainingTasks5
         // eg. list.Alternate(list2);
 
         [Test]
-        public void Test1()
+        public void WhereIf_Test1()
         {
-            
+
+			var products = Data.GetProducts().WhereIf(true, x => x.Category.Equals("Condiments"));
+
+			Assert.AreEqual(12, products.Count());
+
         }
+
+
+		[Test]
+		public void Alternate_Test1()
+		{
+			var meat = Data.GetProducts().WhereIf(true, x => x.Category.Equals("Meat/Poultry"));
+			var seafood = Data.GetProducts().WhereIf(true, x => x.Category.Equals("Seafood"));
+			var allmeat = meat.Alternate(seafood).ToList();
+
+			Assert.AreEqual(18, allmeat.Count);
+			Assert.AreEqual("Seafood", allmeat[0].Category);
+			Assert.AreEqual("Meat/Poultry", allmeat[1].Category);
+			Assert.AreEqual("Seafood", allmeat[2].Category);
+			Assert.AreEqual("Meat/Poultry", allmeat[3].Category);
+
+		}
+
     }
 }

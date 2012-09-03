@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="LinqTests.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="MyLinqExtensions.cs" />
     <Compile Include="NewLinqOperatorTests.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
