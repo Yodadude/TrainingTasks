@@ -32,11 +32,10 @@ namespace TrainingTasks5
 			var seafood = Data.GetProducts().WhereIf(true, x => x.Category.Equals("Seafood"));
 			var allmeat = meat.Alternate(seafood).ToList();
 
-			Assert.AreEqual(18, allmeat.Count);
-			Assert.AreEqual("Seafood", allmeat[0].Category);
-			Assert.AreEqual("Meat/Poultry", allmeat[1].Category);
-			Assert.AreEqual("Seafood", allmeat[2].Category);
-			Assert.AreEqual("Meat/Poultry", allmeat[3].Category);
+            Assert.AreEqual("Meat/Poultry", allmeat[0].Category);
+			Assert.AreEqual("Seafood", allmeat[1].Category);
+			Assert.AreEqual("Meat/Poultry", allmeat[2].Category);
+			Assert.AreEqual("Seafood", allmeat[3].Category);
 
 		}
 
