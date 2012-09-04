@@ -6,20 +6,18 @@ namespace TrainingTasks5
 {
 	public static class MyLinqExtensions
 	{
-		public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> list, bool isTrue, Func<T, bool> action)
+		public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool isTrue, Func<T, bool> predicate)
 		{
 			if (isTrue)
-			{
-                return list.Where(action);
-			}
+                return source.Where(predicate);
             else
-			    return list;
+			    return source;
 		}
 
-		public static IEnumerable<T> Alternate<T>(this IEnumerable<T> list, IEnumerable<T> list2)
+		public static IEnumerable<T> Alternate<T>(this IEnumerable<T> source1, IEnumerable<T> source2)
 		{
-            using (var e1 = list.GetEnumerator())
-                using (var e2 = list2.GetEnumerator())
+            using (var e1 = source1.GetEnumerator())
+                using (var e2 = source2.GetEnumerator())
                     while (e1.MoveNext() && e2.MoveNext())
                     {
                         yield return e1.Current;
